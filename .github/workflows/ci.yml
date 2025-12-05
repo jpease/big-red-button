@@ -40,6 +40,7 @@ jobs:
           pip install -e ".[dev,all]"
 
       - name: Run pre-commit hooks
+        if: matrix.os == 'ubuntu-latest'
         run: |
           pre-commit run --all-files
 
