@@ -1,0 +1,152 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = ["setuptools>=61.0", "wheel"]
+
+[project]
+authors = [
+  {name = "Justin Pease", email = "536+jpease@users.noreply.github.com"}
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: System Administrators",
+  "Intended Audience :: Information Technology",
+  "Topic :: System :: Monitoring",
+  "Topic :: System :: Systems Administration",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Operating System :: OS Independent",
+  "Operating System :: MacOS",
+  "Operating System :: Microsoft :: Windows"
+]
+dependencies = [
+  "psutil>=5.9.0",
+  'tomli>=2.0.0; python_version < "3.11"'
+]
+description = "Performance snapshot tool for creative workstations"
+keywords = ["performance", "monitoring", "snapshot", "diagnostics"]
+license = {file = "LICENSE"}
+name = "big-red-button"
+readme = "README.md"
+requires-python = ">=3.8"
+version = "1.0.0"
+
+[project.optional-dependencies]
+all = [
+  "big-red-button[gpu,windows]"
+]
+dev = [
+  "pre-commit>=3.5.0",
+  "ruff>=0.8.0",
+  "bandit[toml]>=1.7.0",
+  "pytest>=7.0.0",
+  "pytest-cov>=4.0.0",
+  "mypy>=1.0.0"
+]
+gpu = [
+  "GPUtil>=1.4.0",
+  "py3nvml>=0.2.7"
+]
+windows = [
+  'pywin32>=305; platform_system == "Windows"'
+]
+
+[project.scripts]
+big-red-button = "big_red_button.cli:main"
+capture-snapshot = "big_red_button.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/jpease/big-red-button"
+Issues = "https://github.com/jpease/big-red-button/issues"
+Repository = "https://github.com/jpease/big-red-button"
+
+# Bandit security configuration
+[tool.bandit]
+exclude_dirs = ["tests", ".venv", "venv"]
+skips = ["B101"]  # Skip assert_used (OK in tests)
+
+[tool.coverage]
+
+[tool.coverage.report]
+precision = 2
+show_missing = true
+skip_covered = false
+
+# Coverage configuration
+[tool.coverage.run]
+branch = true
+omit = ["*/tests/*", "*/__pycache__/*"]
+source = ["src"]
+
+# Mypy configuration
+[tool.mypy]
+check_untyped_defs = true
+disallow_incomplete_defs = true
+disallow_untyped_defs = true
+no_implicit_optional = true
+python_version = "3.8"
+strict_equality = true
+warn_no_return = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unused_configs = true
+warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+disallow_untyped_defs = false
+module = "tests.*"
+
+# Pytest configuration
+[tool.pytest]
+
+[tool.pytest.ini_options]
+addopts = [
+  "--strict-markers",
+  "--strict-config",
+  "-ra"
+]
+python_classes = ["Test*"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+testpaths = ["tests"]
+
+# Ruff configuration - Modern Python linter and formatter
+[tool.ruff]
+line-length = 79
+src = ["src"]
+target-version = "py38"
+
+[tool.ruff.format]
+indent-style = "space"
+line-ending = "lf"
+quote-style = "double"
+
+[tool.ruff.lint]
+ignore = [
+  "E501"  # Line too long (handled by formatter)
+]
+# Enable recommended rules plus additional checks
+select = [
+  "E",  # pycodestyle errors
+  "W",  # pycodestyle warnings
+  "F",  # pyflakes
+  "I",  # isort
+  "N",  # pep8-naming
+  "UP",  # pyupgrade
+  "B",  # flake8-bugbear
+  "C4",  # flake8-comprehensions
+  "SIM",  # flake8-simplify
+  "PIE"  # flake8-pie
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]  # Unused imports OK in __init__.py
+
+[tool.setuptools.packages.find]
+exclude = ["tests*"]
+include = ["big_red_button*"]
+where = ["src"]

@@ -1,0 +1,68 @@
+# Big Red Button Configuration
+# =============================
+# Copy this file to config.toml and customize for your studio
+
+# -----------------------------------------------------------------------------
+# General Settings
+# -----------------------------------------------------------------------------
+
+# Email address where snapshots should be sent
+# This will be used in the mailto: link when opening the email client
+support_email = "support@example.com"
+
+# Your studio name (appears in email subject line)
+# Example: "Acme VFX Studio Performance Snapshot"
+studio_name = "Your Studio Name"
+
+
+# -----------------------------------------------------------------------------
+# Storage & Output
+# -----------------------------------------------------------------------------
+
+# Directory to save snapshots (optional)
+# Leave commented out to use default: ~/SupportSnapshots
+# Examples:
+#   - macOS shared location: "/Users/Shared/PerformanceSnapshots"
+#   - Windows shared location: "C:\\ProgramData\\PerformanceSnapshots"
+# snapshot_root = "/Users/Shared/PerformanceSnapshots"
+
+
+# -----------------------------------------------------------------------------
+# Network
+# -----------------------------------------------------------------------------
+
+# Storage server hostnames to check connectivity
+# The tool will ping these hosts to verify network connectivity
+# Common examples:
+#   - Avid Nexis servers: nexis1.yourdomain.local, nexis2.yourdomain.local
+#   - NetApp filers: netapp-prod.yourdomain.local
+#   - Other NAS/SAN storage: storage1.yourdomain.local
+storage_hosts = [
+    "nexis1.yourdomain.local",
+    "netapp1.yourdomain.local",
+]
+
+
+# -----------------------------------------------------------------------------
+# System Collection Settings
+# -----------------------------------------------------------------------------
+
+# Number of top processes to capture (by CPU and memory)
+# Higher numbers provide more detail but increase snapshot size
+# Recommended: 30-50 for most cases
+max_processes = 30
+
+# Number of CPU samples to take
+# Multiple samples help catch intermittent performance spikes
+# Each sample is taken at the interval specified below
+# Recommended: 10 samples = 10 seconds of monitoring (with 1.0s interval)
+cpu_sample_count = 10
+
+# Seconds between CPU samples (float)
+# Shorter intervals catch brief spikes but take longer to complete
+# Recommended: 1.0 second for good balance
+# Examples:
+#   - 0.5: Very detailed, catches brief spikes (5 seconds for 10 samples)
+#   - 1.0: Standard monitoring (10 seconds for 10 samples)
+#   - 2.0: Longer monitoring period (20 seconds for 10 samples)
+cpu_sample_interval = 1.0
