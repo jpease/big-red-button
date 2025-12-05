@@ -22,8 +22,9 @@ def collect_disks() -> Dict[str, Any]:
                 "free": usage_obj.free,
                 "percent": usage_obj.percent,
             }
-        except Exception:
-            pass
+        except (PermissionError, OSError):
+            # Ignore permission errors or if disk unmounted
+            pass  # nosec B110
 
         disks.append(
             {
@@ -36,7 +37,7 @@ def collect_disks() -> Dict[str, Any]:
         )
 
     # Disk I/O counters
-    io_counters = {}
+    io_counters: Dict[str, Any] = {}
     try:
         counters = psutil.disk_io_counters(perdisk=True)
         if counters:

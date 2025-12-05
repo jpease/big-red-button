@@ -14,7 +14,7 @@ def collect_temperatures() -> Dict[str, Any]:
     Returns:
         Dict containing temperature readings.
     """
-    temps = {}
+    temps: Dict[str, Any] = {}
     try:
         if hasattr(psutil, "sensors_temperatures"):
             sensors = psutil.sensors_temperatures()

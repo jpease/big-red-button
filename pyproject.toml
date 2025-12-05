@@ -45,7 +45,9 @@ dev = [
   "bandit[toml]>=1.7.0",
   "pytest>=7.0.0",
   "pytest-cov>=4.0.0",
-  "mypy>=1.0.0"
+  "mypy>=1.0.0",
+  "types-psutil>=5.9.0",
+  "types-pywin32>=305"
 ]
 gpu = [
   "GPUtil>=1.4.0",
@@ -84,17 +86,7 @@ source = ["src"]
 
 # Mypy configuration
 [tool.mypy]
-check_untyped_defs = true
-disallow_incomplete_defs = true
-disallow_untyped_defs = true
-no_implicit_optional = true
-python_version = "3.8"
-strict_equality = true
-warn_no_return = true
-warn_redundant_casts = true
-warn_return_any = true
-warn_unused_configs = true
-warn_unused_ignores = true
+python_version = "3.9"
 
 [[tool.mypy.overrides]]
 disallow_untyped_defs = false

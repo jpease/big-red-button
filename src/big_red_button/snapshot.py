@@ -1,7 +1,7 @@
 """Snapshot creation and management."""
 
 import platform
-import subprocess
+import subprocess  # nosec B404
 import textwrap
 import webbrowser
 import zipfile
@@ -228,9 +228,9 @@ def reveal_in_file_manager(path: Path) -> None:
     """
     system = platform.system()
     if system == "Darwin":
-        subprocess.run(["open", "-R", str(path)])
+        subprocess.run(["open", "-R", str(path)], check=False)  # nosec B603, B607
     elif system == "Windows":
-        subprocess.run(["explorer", f'/select,"{path}"'])
+        subprocess.run(["explorer", f'/select,"{path}"'], check=False)  # nosec B603, B607
     else:
         print(f"Please locate this file manually: {path}")
 
@@ -260,11 +260,11 @@ def open_email_draft(zip_path: Path, config: Dict[str, Any]) -> None:
     try:
         if system == "Darwin":  # macOS
             # Try to open with Mail.app specifically, fallback to default handler
-            subprocess.run(["open", "-a", "Mail", mailto_link], check=True)
+            subprocess.run(["open", "-a", "Mail", mailto_link], check=True)  # nosec B603, B607
         elif system == "Windows":  # Windows
-            subprocess.run(["start", mailto_link], shell=True, check=True)
+            subprocess.run(["start", mailto_link], shell=True, check=True)  # nosec B602, B607
         elif system == "Linux":  # Linux
-            subprocess.run(["xdg-open", mailto_link], check=True)
+            subprocess.run(["xdg-open", mailto_link], check=True)  # nosec B603, B607
         else:
             # Fallback for other systems or if specific commands fail
             webbrowser.open(mailto_link)

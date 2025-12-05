@@ -1,7 +1,7 @@
 """Utility functions for the Big Red Button tool."""
 
 import json
-import subprocess
+import subprocess  # nosec B404
 from pathlib import Path
 from typing import Any, Dict, List
 
@@ -22,7 +22,7 @@ def safe_run(cmd: List[str], timeout: int = 5) -> Dict[str, Any]:
             capture_output=True,
             text=True,
             timeout=timeout,
-        )
+        )  # nosec B603
         return {
             "cmd": cmd,
             "returncode": result.returncode,

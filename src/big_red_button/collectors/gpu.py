@@ -13,7 +13,7 @@ def collect_gpu_info() -> Dict[str, Any]:
         Dict containing GPU details.
     """
     system = platform.system()
-    gpu_info = {"platform": system}
+    gpu_info: Dict[str, Any] = {"platform": system}
 
     # Try nvidia-smi for NVIDIA GPUs
     nvidia_smi = safe_run(
@@ -31,7 +31,7 @@ def collect_gpu_info() -> Dict[str, Any]:
 
     # Try py3nvml for detailed NVIDIA info
     try:
-        import py3nvml.py3nvml as nvml
+        import py3nvml.py3nvml as nvml  # type: ignore[import-untyped]
 
         nvml.nvmlInit()
         device_count = nvml.nvmlDeviceGetCount()
@@ -85,7 +85,7 @@ def collect_gpu_info() -> Dict[str, Any]:
 
     # Try GPUtil as fallback
     try:
-        import GPUtil
+        import GPUtil  # type: ignore[import-untyped]
 
         gpus = GPUtil.getGPUs()
         gpu_info["gputil_devices"] = [

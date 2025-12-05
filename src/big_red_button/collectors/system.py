@@ -3,7 +3,7 @@
 import os
 import platform
 import time
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from typing import Any, Dict
 
 import psutil
@@ -17,7 +17,7 @@ def collect_system_info() -> Dict[str, Any]:
     """
     boot_time = psutil.boot_time()
     return {
-        "timestamp_utc": datetime.now(UTC).isoformat(),
+        "timestamp_utc": datetime.now(timezone.utc).isoformat(),
         "timestamp_local": datetime.now().isoformat(),
         "platform": platform.system(),
         "platform_release": platform.release(),

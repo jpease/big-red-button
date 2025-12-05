@@ -2,13 +2,13 @@
 
 import sys
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 # TOML support: use tomllib (Python 3.11+) or tomli (older versions)
 try:
-    import tomllib
+    import tomllib  # type: ignore[import-not-found]
 except ModuleNotFoundError:
-    import tomli as tomllib
+    import tomli as tomllib  # type: ignore[import-not-found]
 
 DEFAULT_CONFIG_TEMPLATE = """# Big Red Button Configuration
 # =============================
@@ -101,7 +101,7 @@ def init_config(target_path: Path) -> None:
     print("Please edit this file with your studio settings.")
 
 
-def load_config(config_path: Path = None) -> Dict[str, Any]:
+def load_config(config_path: Optional[Path] = None) -> Dict[str, Any]:
     """Load configuration from config.toml file.
 
     Args:
@@ -151,7 +151,7 @@ def load_config(config_path: Path = None) -> Dict[str, Any]:
         sys.exit(1)
 
     with open(config_path, "rb") as f:
-        config = tomllib.load(f)
+        config: Dict[str, Any] = tomllib.load(f)
 
     # Set defaults
     if config.get("snapshot_root") is None:
