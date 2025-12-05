@@ -1,6 +1,6 @@
 """System information collector."""
 
-import os
+import getpass
 import platform
 import time
 from datetime import datetime, timezone
@@ -16,6 +16,12 @@ def collect_system_info() -> Dict[str, Any]:
         Dict containing system details.
     """
     boot_time = psutil.boot_time()
+
+    try:
+        user = getpass.getuser()
+    except Exception:
+        user = None
+
     return {
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
         "timestamp_local": datetime.now().isoformat(),
@@ -28,5 +34,5 @@ def collect_system_info() -> Dict[str, Any]:
         "python_version": platform.python_version(),
         "boot_time": datetime.fromtimestamp(boot_time).isoformat(),
         "uptime_seconds": time.time() - boot_time,
-        "user": os.getlogin() if hasattr(os, "getlogin") else None,
+        "user": user,
     }
