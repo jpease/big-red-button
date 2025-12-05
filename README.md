@@ -7,17 +7,16 @@
   <a href="https://codecov.io/gh/jpease/big-red-button">
     <img src="https://codecov.io/gh/jpease/big-red-button/branch/main/graph/badge.svg" alt="Coverage">
   </a>
+  <!--
   <a href="https://pypi.org/project/big-red-button/">
     <img src="https://img.shields.io/pypi/v/big-red-button.svg" alt="PyPI">
   </a>
   <a href="https://pypi.org/project/big-red-button/">
     <img src="https://img.shields.io/pypi/pyversions/big-red-button.svg" alt="Python Versions">
   </a>
+  -->
   <a href="https://github.com/jpease/big-red-button/blob/main/LICENSE">
     <img src="https://img.shields.io/github/license/jpease/big-red-button.svg" alt="License">
-  </a>
-  <a href="https://github.com/astral-sh/ruff">
-    <img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json" alt="Ruff">
   </a>
 </p>
 
